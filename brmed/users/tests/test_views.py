@@ -11,11 +11,7 @@ from django.urls import reverse
 from brmed.users.forms import UserAdminChangeForm
 from brmed.users.models import User
 from brmed.users.tests.factories import UserFactory
-from brmed.users.views import (
-    UserRedirectView,
-    UserUpdateView,
-    user_detail_view,
-)
+from brmed.users.views import UserRedirectView, UserUpdateView, user_detail_view
 
 pytestmark = pytest.mark.django_db
 

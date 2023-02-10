@@ -12,6 +12,12 @@ urlpatterns = [
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),
+    path("highcharts/", include("brmed.highcharts.urls"), name="highcharts"),
+    path(
+        "highcharts/api/",
+        include("brmed.highcharts.api.v1.urls"),
+        name="highcharts-api",
+    ),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Django Highcharts Example{% endblock %}
+
+{% block content %}
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/data.js"></script>
+  <div id="container"></div>
+  <script src="{% static 'js/dollar_graphic.js' %}"></script>
+{% endblock content %}
+
+{% block inline_javascript %}
+{% endblock inline_javascript %}

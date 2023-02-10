@@ -57,13 +57,19 @@ test: ## Run tests
 bash: check_django_running ## Access bash from django container
 	@docker exec -it ${CONTAINER_NAME} /bin/bash
 
-check_django_running:
+check_django_running: ## Checks if all containers are running
 	@RUNNING=$$(docker ps -f name=${CONTAINER_NAME} --format="{{.ID}}"); \
 	echo $${RUNNING}; \
 	if [ "$${RUNNING}" = "" ]; then \
 		echo "${CONTAINER_NAME} machine must be running to run this command"; \
 		exit 1; \
 	fi
+
+
+## @ Pre-commit
+.PHONY: format
+format:  ## Formats all code using pre-commit parameters
+	@pre-commit run --all-files
 
 .PHONY: help
 help:
