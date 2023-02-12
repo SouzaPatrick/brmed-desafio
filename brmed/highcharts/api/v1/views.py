@@ -3,16 +3,21 @@ from typing import List
 
 import requests
 from rest_framework import status
-from rest_framework.response import Response
 from rest_framework.request import Request
-
+from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from brmed.highcharts.utils.vatcomply import VatComplyRequest
 from brmed.highcharts.api.v1.serializers import GraphSerializer
-from brmed.highcharts.utils.convert_date_str import convert_date_to_str, convert_str_to_date
+from brmed.highcharts.utils.convert_date_str import (
+    convert_date_to_str,
+    convert_str_to_date,
+)
+from brmed.highcharts.utils.vatcomply import VatComplyRequest
+from rest_framework.permissions import AllowAny
+
 
 class HighchartsAPIView(APIView):
+    permission_classes = [AllowAny]
     def get(self, request: Request) -> Response:
         start_date: str = request.GET.get('start_date', None)
         end_date: str = request.GET.get('end_date', None)
@@ -63,17 +68,42 @@ class HighchartsAPIView(APIView):
                 data["BRL"].append(response.json().get('rates').get("BRL"))
                 data["EUR"].append(response.json().get('rates').get("EUR"))
                 data["JPY"].append(response.json().get('rates').get("JPY"))
-
-        end_date: date = (datetime.now().date() - timedelta(days=1))
-        start_date: date = (end_date - timedelta(days=5))
-        data["start_date"] = {
-            "day": start_date.day,
-            "month": start_date.month,
-            "year": start_date.year
-        }
-        data["end_date"] = {
-            "day": end_date.day,
-            "month": end_date.month,
-            "year": end_date.year
-        }
+        # data: dict = {
+        #     "BRL": [
+        #         5.066654475633173,
+        #         5.066654475633173,
+        #         5.161933927245732,
+        #         5.160373831775701,
+        #         5.183418723800653,
+        #         5.214464766502647,
+        #     ],
+        #     "EUR": [
+        #         0.9143275121148396,
+        #         0.9143275121148396,
+        #         0.9279881217520417,
+        #         0.9345794392523364,
+        #         0.9315323707498836,
+        #         0.9284189026088572,
+        #     ],
+        #     "JPY": [
+        #         128.41729907652922,
+        #         128.41729907652922,
+        #         132.15478841870825,
+        #         132.05607476635515,
+        #         131.1690731252911,
+        #         130.7213814873271,
+        #     ],
+        # }
+        # end_date: date = datetime.now().date() - timedelta(days=1)
+        # start_date: date = end_date - timedelta(days=5)
+        # data["start_date"] = {
+        #     "day": start_date.day,
+        #     "month": start_date.month,
+        #     "year": start_date.year,
+        # }
+        # data["end_date"] = {
+        #     "day": end_date.day,
+        #     "month": end_date.month,
+        #     "year": end_date.year,
+        # }
         return Response(data)

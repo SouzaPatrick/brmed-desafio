@@ -2,7 +2,10 @@ import datetime
 
 import requests
 
-from brmed.highcharts.utils.convert_date_str import convert_date_to_str, convert_str_to_date
+from brmed.highcharts.utils.convert_date_str import (
+    convert_date_to_str,
+    convert_str_to_date,
+)
 
 
 class VatComplyRequest:
@@ -24,19 +27,16 @@ class VatComplyRequest:
 
         return response
 
-    def main(
-        self, date_start: str, date_end: str
-    ) -> list[requests.Response]:
+    def main(self, date_start: str, date_end: str) -> list[requests.Response]:
         dates_generated: list[datetime.date] = self._generate_renge_dates(
-            date_start=convert_str_to_date(date=date_start), date_end=convert_str_to_date(date=date_end)
+            date_start=convert_str_to_date(date=date_start),
+            date_end=convert_str_to_date(date=date_end),
         )
 
         responses: list[requests.Response] = []
         for date_generated in dates_generated:
             responses.append(
-                self._get_usd_quotation(
-                    date=convert_date_to_str(date_generated)
-                )
+                self._get_usd_quotation(date=convert_date_to_str(date_generated))
             )
 
         return responses
