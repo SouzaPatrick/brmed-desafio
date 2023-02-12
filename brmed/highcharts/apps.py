@@ -11,4 +11,3 @@ class HighchartsConfig(AppConfig):
             import brmed.users.signals  # noqa F401
         except ImportError:
             pass
-

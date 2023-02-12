@@ -5,6 +5,17 @@
 {% block content %}
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/data.js"></script>
+  <form action="/highcharts/">
+    <label>
+      start date:
+      <input type="date" name="start_date" />
+    </label>
+    <label>
+      end date:
+      <input type="date" name="end_date" />
+    </label>
+    <button>Submit</button>
+  </form>
   <div id="container"></div>
   <script src="{% static 'js/dollar_graphic.js' %}"></script>
 {% endblock content %}
