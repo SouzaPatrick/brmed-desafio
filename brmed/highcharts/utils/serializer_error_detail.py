@@ -1,5 +1,6 @@
 from rest_framework.exceptions import ErrorDetail
 
+
 def extract_error_detail(error):
     field_list = []
     for field, value in error.items():
@@ -11,6 +12,6 @@ def extract_error_detail(error):
             except IndexError:
                 error_message = str(value)
 
-        field_list.append({'field_name': field, 'error_message': error_message})
+        field_list.append({"field_name": field, "error_message": error_message})
 
     return field_list

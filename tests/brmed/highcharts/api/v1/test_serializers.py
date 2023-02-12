@@ -19,8 +19,14 @@ def test_input_data_type_graph_serializer(date_range):
     assert serializer.is_valid() is True
     assert serializer.data == {"start_date": "2023-02-04", "end_date": "2023-02-08"}
 
+
 def test_input_data_type_graph_serializer_invalid():
-    serializer = GraphSerializer(data={"start_date": "2023-02-08", "end_date": "2023-02-04"})
+    serializer = GraphSerializer(
+        data={"start_date": "2023-02-08", "end_date": "2023-02-04"}
+    )
 
     assert serializer.is_valid() is False
-    assert extract_error_detail(serializer.errors)[0]["error_message"] == "The value entered for the date range is invalid"
+    assert (
+        extract_error_detail(serializer.errors)[0]["error_message"]
+        == "The value entered for the date range is invalid"
+    )
