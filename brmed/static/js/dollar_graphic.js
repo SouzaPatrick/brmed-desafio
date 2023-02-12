@@ -1,6 +1,7 @@
 $(function () {
     var url = "/highcharts/api/" + location.search;
     $.getJSON(url, function(response){
+        console.log(typeof response["start_date"]);
         $('#container').highcharts({
           title: {
               text: 'USD x BRL, EUR and JPY',
