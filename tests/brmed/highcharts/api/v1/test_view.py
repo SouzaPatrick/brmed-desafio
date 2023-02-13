@@ -20,6 +20,6 @@ def test_highcharts_api_view(client, mocker):
         "BRL": [],
         "EUR": [],
         "JPY": [],
-        "start_date": {"day": 4, "month": 2, "year": 2023},
+        "start_date": {"day": 6, "month": 2, "year": 2023},
         "end_date": {"day": 8, "month": 2, "year": 2023},
     }

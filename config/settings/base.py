@@ -302,3 +302,6 @@ SPECTACULAR_SETTINGS = {
 }
 # Your stuff...
 # ------------------------------------------------------------------------------
+# TODO In the future, assign this variable through the constance settings,
+#  in case the system intends to take on a global scale
+COUNTRY_WORKADAYS = "BR"

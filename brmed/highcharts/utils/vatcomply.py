@@ -1,11 +1,10 @@
 import datetime
 
 import requests
+from django.conf import settings
+from workadays import workdays as wd
 
-from brmed.highcharts.utils.convert_date_str import (
-    convert_date_to_str,
-    convert_str_to_date,
-)
+from brmed.highcharts.utils.convert_date_str import convert_date_to_str
 
 
 class VatComplyRequest:
@@ -14,7 +13,13 @@ class VatComplyRequest:
     ) -> list[datetime.date]:
         dates_generated: list[datetime.date] = []
         for day in range(0, ((date_end - date_start).days + 1)):
-            dates_generated.append(date_start + datetime.timedelta(days=day))
+            date_generated: datetime.date = date_start + datetime.timedelta(days=day)
+            if wd.is_workday(
+                date_generated,
+                country=settings.COUNTRY_WORKADAYS,
+                years=range(date_start.year, date_end.year),
+            ):
+                dates_generated.append(date_generated)
 
         return dates_generated
 
@@ -27,11 +32,11 @@ class VatComplyRequest:
 
         return response
 
-    def main(self, date_start: str, date_end: str) -> list[requests.Response]:
-        dates_generated: list[datetime.date] = self._generate_renge_dates(
-            date_start=convert_str_to_date(date=date_start),
-            date_end=convert_str_to_date(date=date_end),
-        )
+    def main(self, dates_generated: list[datetime.date]) -> list[requests.Response]:
+        # dates_generated: list[datetime.date] = self._generate_renge_dates(
+        #     date_start=convert_str_to_date(date=date_start),
+        #     date_end=convert_str_to_date(date=date_end),
+        # )
 
         responses: list[requests.Response] = []
         for date_generated in dates_generated:

@@ -8,11 +8,6 @@ $(function () {
               align: 'left'
           },
 
-          subtitle: {
-              text: 'Source: <a href="https://irecusa.org/programs/solar-jobs-census/" target="_blank">IREC</a>',
-              align: 'left'
-          },
-
           yAxis: {
               title: {
                   text: 'Value'
