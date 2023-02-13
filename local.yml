@@ -35,19 +35,3 @@ services:
       - ./.envs/.local/.postgres
     ports:
       - "5432:5432"
-
-  docs:
-    image: brmed_local_docs
-    container_name: brmed_local_docs
-    build:
-      context: .
-      dockerfile: ./compose/local/docs/Dockerfile
-    env_file:
-      - ./.envs/.local/.django
-    volumes:
-      - ./docs:/docs:z
-      - ./config:/app/config:z
-      - ./brmed:/app/brmed:z
-    ports:
-      - "9000:9000"
-    command: /start-docs

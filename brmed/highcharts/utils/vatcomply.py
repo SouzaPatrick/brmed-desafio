@@ -1,8 +1,6 @@
 import datetime
 
 import requests
-from django.conf import settings
-from workadays import workdays as wd
 
 from brmed.highcharts.utils.convert_date_str import convert_date_to_str
 

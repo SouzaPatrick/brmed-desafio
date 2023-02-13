@@ -17,9 +17,9 @@ def test_highcharts_api_view(client, mocker):
     response = client.get("/highcharts/api/?start_date=2023-02-04&end_date=2023-02-08")
     assert response.status_code == status.HTTP_200_OK
     assert response.data == {
-        "BRL": [],
-        "EUR": [],
-        "JPY": [],
+        "BRL": [None, None],
+        "EUR": [None, None],
+        "JPY": [None, None],
         "start_date": {"day": 6, "month": 2, "year": 2023},
         "end_date": {"day": 8, "month": 2, "year": 2023},
     }
