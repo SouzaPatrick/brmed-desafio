@@ -19,7 +19,7 @@ $(function () {
             dateTimeLabelFormats: {
               day: '%d %b %Y' //ex- 01 Jan 2016
             },
-            max: Date.UTC(response["end_date"]["year"], response["end_date"]["month"], response["end_date"]["day"]),
+            max: Date.UTC(response["end_date"]["year"], response["end_date"]["month"]-1, response["end_date"]["day"]),
             showLastLabel: true,
             labels: {
               rotation: -45
@@ -37,7 +37,7 @@ $(function () {
                 label: {
                     connectorAllowed: false
                 },
-                pointStart: Date.UTC(response["start_date"]["year"], response["start_date"]["month"], response["start_date"]["day"]),
+                pointStart: Date.UTC(response["start_date"]["year"], response["start_date"]["month"]-1, response["start_date"]["day"]),
                 pointInterval: 24 * 3600 * 1000 // one hour
             }
           },
