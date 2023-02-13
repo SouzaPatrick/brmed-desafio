@@ -14,6 +14,7 @@ from brmed.highcharts.utils.generate_renge_dates import (
     generate_renge_dates_working_days,
 )
 from brmed.highcharts.utils.vatcomply import VatComplyRequest
+from brmed.highcharts.models import Quote
 
 
 class HighchartsAPIView(APIView):
@@ -42,6 +43,8 @@ class HighchartsAPIView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+        # comment = serializer.save()
+
         working_days: list[datetime.date] = generate_renge_dates_working_days(
             date_start=start_date, date_end=end_date
         )
@@ -52,7 +55,7 @@ class HighchartsAPIView(APIView):
         dates_generated: list[datetime.date] = generate_renge_dates(
             date_start=start_date, date_end=end_date
         )
-        # date_generated_used: list[datetime.date] = []
+
         count_response: int = 0
         for date_generated in dates_generated:
             if date_generated not in working_days:
@@ -70,9 +73,16 @@ class HighchartsAPIView(APIView):
                         data["BRL"].append(None)
                         data["EUR"].append(None)
                         data["JPY"].append(None)
+                    quote: Quote = Quote(
+                        url=response.url,
+                        status_code=response.status_code,
+                        quote_brl=data["BRL"][-1],
+                        quote_eur=data["EUR"][-1],
+                        quote_jpy=data["JPY"][-1],
+                        response=response.json()
+                    )
+                    quote.save()
                     count_response += 1
-                else:
-                    break
 
         data["start_date"] = {
             "day": dates_generated[0].day,

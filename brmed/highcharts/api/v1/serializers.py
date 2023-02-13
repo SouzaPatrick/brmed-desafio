@@ -28,3 +28,7 @@ class GraphSerializer(serializers.Serializer):
                 "Invalid informed period, inform a maximum range of 5 working days"
             )
         return data
+
+    def create(self, validated_data):
+
+        return
